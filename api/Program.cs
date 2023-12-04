@@ -2,8 +2,12 @@ using api.Configurations;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.ConfigurarServicos();
+var startup = new Startup(builder.Configuration);
+
+startup.ConfigureServices(builder.Services);
 
 var app = builder.Build();
 
-app.UsarServicos().Run();
+startup.Configure(app, app.Environment);
+
+app.Run();
