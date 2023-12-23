@@ -7,7 +7,9 @@ using System.Threading.Tasks;
 namespace ServicoLancamentoNotas.Dominio.Enums;
 public enum StatusIntegracao
 {
-    [Description]
-    AguardandoIntegracao = 1
-
+    
+    AguardandoIntegracao = 1,
+    EviadaParaIntegracao = 2,
+    IntegradaComSucesso = 3,
+    FalhaNaIntegracao = 4
 }

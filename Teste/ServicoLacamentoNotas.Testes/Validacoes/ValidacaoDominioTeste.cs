@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using FluentAssertions;
 using ServicoLacamentoNotas.Testes.Dominio.Entidades;
+using ServicoLacamentoNotas.Testes.Validacoes.Validador;
+using ServicoLancamentoNotas.Dominio.Constantes;
 using ServicoLancamentoNotas.Dominio.SeedWork;
 using ServicoLancamentoNotas.Dominio.Validacoes;
 using Xunit;
@@ -131,7 +133,7 @@ namespace ServicoLacamentoNotas.Testes.Validacoes
             objetoNotificavel.Notificacoes.First().Mensagem.Should().Be(mensagem);
         }
 
-        [Fact(DisplayName = "")]
+        [Fact(DisplayName = nameof(NumeroMaximoCaracteres_QuandoValorNaoExcedeQuantidadeCaracteres_NaoDeveNotificarObjeto))]
         [Trait("Dominio", "ValidacoesDominio - Validacoes")]
         public void NumeroMaximoCaracteres_QuandoValorNaoExcedeQuantidadeCaracteres_NaoDeveNotificarObjeto()
         {
@@ -149,6 +151,46 @@ namespace ServicoLacamentoNotas.Testes.Validacoes
             //Assert
             objetoNotificavel.Notificacoes.Should().BeEmpty();
             objetoNotificavel.Notificacoes.Should().HaveCount(default(int));
+        }
+
+        [Fact(DisplayName = nameof(Validar_QuandoValidacaoFalaha_DeveNotificarObjeto))]
+        public void Validar_QuandoValidacaoFalaha_DeveNotificarObjeto()
+        {
+            //Arrange
+            var objetoNotificavel = new NotaFake(-1, -1, -1, -1);
+            var validador  = NotaFakeValidador.Instance;
+
+            //Act
+            ValidacoesDominio.Validar(objetoNotificavel, validador);
+            
+            //Asssert
+            objetoNotificavel.Notificacoes.Should().NotBeEmpty();
+            objetoNotificavel.Notificacoes.Should().HaveCount(4);
+            objetoNotificavel.Notificacoes.Select(x => x.Mensagem)
+                .Should().Contain(ConstantesDominio.MensagensValidacoes.ERRO_USUARIO_INVALIDO);
+            objetoNotificavel.Notificacoes.Select(x => x.Mensagem)
+                .Should().Contain(ConstantesDominio.MensagensValidacoes.ERRO_ALUNO_INVALIDO);
+            objetoNotificavel.Notificacoes.Select(x => x.Mensagem)
+                .Should().Contain(ConstantesDominio.MensagensValidacoes.ERRO_ATIVIDADE_INVALIDO);
+            objetoNotificavel.Notificacoes.Select(x => x.Mensagem)
+                .Should().Contain(ConstantesDominio.MensagensValidacoes.ERRO_VALOR_NOTA_INVALIDO);
+            objetoNotificavel.EhValida.Should().BeFalse();  
+
+        }
+
+        [Fact(DisplayName = nameof(Validar_QuandoValidacaoPassa_NaoDeveNotificarObjeto))]
+        public void Validar_QuandoValidacaoPassa_NaoDeveNotificarObjeto()
+        {
+            //Arrange
+            var objetoNotificavel = new NotaFake(1, 1, 1, 1);
+            var validador  = NotaFakeValidador.Instance;
+
+            //Act
+            ValidacoesDominio.Validar(objetoNotificavel, validador);
+            
+            //Asssert
+            objetoNotificavel.Notificacoes.Should().BeEmpty();            
+            objetoNotificavel.EhValida.Should().BeTrue();
         }
     }
 }

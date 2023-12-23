@@ -9,11 +9,11 @@ using Xunit;
 namespace ServicoLacamentoNotas.Testes.Dominio
 {
     
-    public class NotiableObjectTests
+    public class NotifiableObjectTests
     {
-        [Fact(DisplayName = nameof(Notificar_DeveAdiocionar_NotificacaoNaLisrta))]
+        [Fact(DisplayName = nameof(Notificar_DeveAdicionar_NotificacaoNaLista))]
         [Trait("Dominio", "NotiableObject - Notificação")]
-        public void Notificar_DeveAdiocionar_NotificacaoNaLisrta() 
+        public void Notificar_DeveAdicionar_NotificacaoNaLista() 
         {
             //Arrange
             string nomeCampo = "UsuarioId";

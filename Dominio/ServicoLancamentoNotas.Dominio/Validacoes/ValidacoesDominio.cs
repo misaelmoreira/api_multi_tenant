@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FluentValidation;
 using ServicoLancamentoNotas.Dominio.SeedWork;
 
 namespace ServicoLancamentoNotas.Dominio.Validacoes
@@ -11,8 +12,7 @@ namespace ServicoLancamentoNotas.Dominio.Validacoes
         public static void DeveEstarEntre(double valor, double valorInicialIntervalo, double valorFinalIntervalo, NotifiableObject objetoNotificavel, string nomeCampo, string mensagem)
         {
             if(valor < valorInicialIntervalo || valor > valorFinalIntervalo)
-                objetoNotificavel.Notificar(new Notificacao(nomeCampo, mensagem));
-                
+                objetoNotificavel.Notificar(new Notificacao(nomeCampo, mensagem));                
         }
 
         public static void MaiorQue(int valor, int valorMinimo, NotifiableObject objetoNotificavel, string nomeCampo, string mensagem)
@@ -25,6 +25,14 @@ namespace ServicoLancamentoNotas.Dominio.Validacoes
         {
             if(texto.Length > numeroMaximoCaracteres)
                 objetoNotificavel.Notificar(new Notificacao(nomeCampo, mensagem));
+        }
+
+        public static void Validar<TModel>(TModel objetoNotificavel, AbstractValidator<TModel> validador) where TModel : NotifiableObject
+        {
+            var validadorResultado = validador.Validate(objetoNotificavel);
+            objetoNotificavel.EhValida = validadorResultado.IsValid;
+
+            validadorResultado.Errors.ForEach(x => objetoNotificavel.Notificar(new(x.PropertyName, x.ErrorMessage)));
         }
     }
 }
