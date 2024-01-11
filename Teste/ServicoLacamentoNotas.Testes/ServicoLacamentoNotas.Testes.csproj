@@ -11,6 +11,7 @@
     <PackageReference Include="Bogus" Version="34.0.2" />
     <PackageReference Include="FluentAssertions" Version="6.12.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
+    <PackageReference Include="Moq" Version="4.20.70" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -24,6 +25,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Dominio\ServicoLancamentoNotas.Dominio\ServicoLancamentoNotas.Dominio.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Aplicacao\ServicoLancamentoNotas.Aplicacao\ServicoLancamentoNotas.Aplicacao.csproj" />
   </ItemGroup>
 
 </Project>

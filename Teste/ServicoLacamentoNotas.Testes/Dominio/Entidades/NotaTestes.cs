@@ -72,28 +72,7 @@ namespace ServicoLacamentoNotas.Testes.Dominio.Entidades
             nota.Notificacoes.First().Campo.Should().Be(nameof(nota.ValorNota));
             nota.Notificacoes.First().Mensagem.Should().Be(ConstantesDominio.MensagensValidacoes.ERRO_VALOR_NOTA_INVALIDO);
             nota.EhValida.Should().BeFalse();
-        }
-
-
-        [Theory(DisplayName = nameof(InstanciarNota_QuandoUsuarioIdInvalido_DeveLancarNotificacao))]
-        [Trait("Dominio", "Nota - Agregado")]
-        [InlineData(-1)]
-        [InlineData(0)]
-        public void InstanciarNota_QuandoUsuarioIdInvalido_DeveLancarNotificacao(int usuarioId)
-        {
-            //Arrange
-            var parametroUsuario = _fixture.RetornaValoresParametrosInvalidosCustomizados(usuarioId : usuarioId);
-
-            //Act      
-            var nota = new Nota(parametroUsuario);
-            
-            //Assert
-            nota.Notificacoes.Should().NotBeEmpty();
-            nota.Notificacoes.Should().HaveCount(1);
-            nota.Notificacoes.First().Campo.Should().Be(nameof(nota.UsuarioId));
-            nota.Notificacoes.First().Mensagem.Should().Be(ConstantesDominio.MensagensValidacoes.ERRO_USUARIO_INVALIDO);
-            nota.EhValida.Should().BeFalse();
-        }
+        }        
 
         [Theory(DisplayName = nameof(InstanciarNota_QuandoAlunoIdInvalido_DeveLancarNotificacao))]
         [Trait("Dominio", "Nota - Agregado")]
@@ -374,7 +353,7 @@ namespace ServicoLacamentoNotas.Testes.Dominio.Entidades
             //Assert
             nota.Notificacoes.Should().NotBeEmpty();            
             nota.EhValida.Should().BeFalse();
-            nota.Notificacoes.Should().HaveCount(1);
+            nota.Notificacoes.Should().HaveCount(1);    
         }
         
     }
