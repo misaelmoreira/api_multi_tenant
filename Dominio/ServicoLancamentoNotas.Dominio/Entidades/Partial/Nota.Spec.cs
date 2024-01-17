@@ -1,10 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using ServicoLancamentoNotas.Dominio.Specifications;
 
-namespace Dominio.ServicoLancamentoNotas.Dominio.Entidades;
+namespace ServicoLancamentoNotas.Dominio.Entidades;
 
 public partial class Nota
 {

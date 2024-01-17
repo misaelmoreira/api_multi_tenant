@@ -1,17 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Threading.Tasks;
 using ServicoLancamentoNotas.Dominio.Constantes;
 using ServicoLancamentoNotas.Dominio.Enums;
-using ServicoLancamentoNotas.Dominio.Exceptions;
 using ServicoLancamentoNotas.Dominio.Params;
 using ServicoLancamentoNotas.Dominio.SeedWork;
 using ServicoLancamentoNotas.Dominio.Validacoes;
 using ServicoLancamentoNotas.Dominio.Validacoes.Validador;
 
-namespace Dominio.ServicoLancamentoNotas.Dominio.Entidades;
+namespace ServicoLancamentoNotas.Dominio.Entidades;
 
 public partial class Nota : Entidade, IRaizAgregacao
 {
@@ -43,8 +37,7 @@ public partial class Nota : Entidade, IRaizAgregacao
     private void Validar()
     {
         ValidacoesDominio
-            .Validar(this, NotaValidador.Instance);
-                
+            .Validar(this, NotaValidador.Instance);                
     }
 
     public void Cancelar(string motivoCancelamento)
@@ -69,7 +62,7 @@ public partial class Nota : Entidade, IRaizAgregacao
         DataAtualizacao = DateTime.Now;
         Validar();
     }
-
+    
     public void AtualizarValorNota(double novoValorNota)
     {
         ValorNota = novoValorNota;
@@ -106,7 +99,7 @@ public partial class Nota : Entidade, IRaizAgregacao
         DataAtualizacao = DateTime.Now;
         Validar();
     }
-
+    
     public void AlterarStatusIntegracaoParaFalhaIntegracao()
     {
         ValidarStatus(PodeAlterarStatusParaFalhaIntegracao, StatusIntegracao.FalhaNaIntegracao);
@@ -119,7 +112,7 @@ public partial class Nota : Entidade, IRaizAgregacao
         DataAtualizacao = DateTime.Now;
         Validar();
     }
-
+    
     public void AlterarStatusParaIntegradaComSucesso()
     {
         ValidarStatus(PodeAlterarStatusParaIntegradaComSucesso, StatusIntegracao.IntegradaComSucesso);
@@ -137,7 +130,5 @@ public partial class Nota : Entidade, IRaizAgregacao
     {
         if(!podeAlterarStatus())
             Notificar(new(nameof(StatusIntegracao), string.Format(ConstantesDominio.Mensagens.ALTERACAO_DE_STATUS_NAO_PERMITIDA, proximoStatus.ToString())));
-    }
-
-    
+    }    
 }

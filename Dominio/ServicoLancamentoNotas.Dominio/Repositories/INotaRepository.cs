@@ -1,14 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Dominio.ServicoLancamentoNotas.Dominio.Entidades;
+using ServicoLancamentoNotas.Dominio.Entidades;
 using ServicoLancamentoNotas.Dominio.SeedWork;
+using ServicoLancamentoNotas.Dominio.SeedWork.BuscaRepositorio;
 
 namespace ServicoLancamentoNotas.Dominio.Repositories
 {
-    public interface INotaRepository : IGenericInterface<Nota>
+    public interface INotaRepository : IGenericRepository<Nota>, IBuscaRepository<Nota>
     {
-        
+        Task<Nota> BuscarNotaPorAlunoEAtividade(int alunoId, int atividadeId, CancellationToken cancellationToken );            
     }
 }

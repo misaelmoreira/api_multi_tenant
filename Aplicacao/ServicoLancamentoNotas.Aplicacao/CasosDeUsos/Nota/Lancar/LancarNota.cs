@@ -1,14 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using ServicoLancamentoNotas.Aplicacao.CasosDeUsos.Nota.Comum;
 using ServicoLancamentoNotas.Aplicacao.CasosDeUsos.Nota.Lancar.DTOs;
 using ServicoLancamentoNotas.Aplicacao.CasosDeUsos.Nota.Lancar.Interfaces;
 using ServicoLancamentoNotas.Aplicacao.Interfaces;
 using ServicoLancamentoNotas.Aplicacao.Mapeadores;
 using ServicoLancamentoNotas.Dominio.Repositories;
-using ServicoLancamentoNotas.Dominio.SeedWork;
 
 namespace ServicoLancamentoNotas.Aplicacao.CasosDeUsos.Nota.Lancar
 {
@@ -25,12 +20,19 @@ namespace ServicoLancamentoNotas.Aplicacao.CasosDeUsos.Nota.Lancar
 
         public async Task<NotaOutputModel> Handle(LancarNotaInput request, CancellationToken cancellationToken)
         {
-            var nota = MapeadorAplicacao.LancarNotaInputEmNota(request);
+            if(request.NotaSubstitutiva)
+            {
+                var nota = await _notaRepository.BuscarNotaPorAlunoEAtividade(request.AlunoId, request.AtividadeId, cancellationToken);
+                nota.CancelarPorRetentativa();
+                await _notaRepository.Atualizar(nota, cancellationToken);
+            }
 
-            await _notaRepository.Inserir(nota, cancellationToken);
+            var novaNota = MapeadorAplicacao.LancarNotaInputEmNota(request);
+
+            await _notaRepository.Inserir(novaNota, cancellationToken);
             await _unitOfWork.Commit(cancellationToken);
 
-            return MapeadorAplicacao.NotaEmNotaOutpuModel(nota);
+            return MapeadorAplicacao.NotaEmNotaOutpuModel(novaNota);
         }
     }
 }

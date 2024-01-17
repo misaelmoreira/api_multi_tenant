@@ -1,18 +1,14 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using Dominio.ServicoLancamentoNotas.Dominio.Entidades;
+using ServicoLancamentoNotas.Dominio.Entidades;
 using FluentAssertions;
 using ServicoLancamentoNotas.Dominio.Constantes;
 using ServicoLancamentoNotas.Dominio.Enums;
-using ServicoLancamentoNotas.Dominio.Exceptions;
-using ServicoLancamentoNotas.Dominio.Params;
 using ServicoLancamentoNotas.Dominio.SeedWork;
 using Xunit;
 
 namespace ServicoLacamentoNotas.Testes.Dominio.Entidades
 {
-
     [Collection(nameof(NotaTestesFixture))]
     public class NotaTestes
     {
@@ -21,7 +17,6 @@ namespace ServicoLacamentoNotas.Testes.Dominio.Entidades
         {
             _fixture = fixture;            
         }
-
 
         [Fact(DisplayName = "")]
         [Trait("Dominio", "Nota - Agregado")]
@@ -52,7 +47,6 @@ namespace ServicoLacamentoNotas.Testes.Dominio.Entidades
             nota.Should().BeAssignableTo<NotifiableObject>();
             nota.EhValida.Should().BeTrue();
         }
-
         
         [Theory(DisplayName = nameof(InstanciarNota_QuandoValorNotaInvalido_DeveLancarNotificacao))]
         [Trait("Dominio", "Nota - Agregado")]
@@ -137,7 +131,6 @@ namespace ServicoLacamentoNotas.Testes.Dominio.Entidades
             nota.Cancelada.Should().BeFalse();
         }
 
-
         [Fact(DisplayName = nameof(CancelaNota_QuandoInformadoMotivoExtenso_DevePossuirNotificacao))]
         [Trait("Dominio", "Nota - Agregado")]        
         public void CancelaNota_QuandoInformadoMotivoExtenso_DevePossuirNotificacao()
@@ -219,7 +212,6 @@ namespace ServicoLacamentoNotas.Testes.Dominio.Entidades
             nota.Notificacoes.First().Mensagem.Should().Be(ConstantesDominio.MensagensValidacoes.ERRO_VALOR_NOTA_INVALIDO);
         }
 
-
         [Theory(DisplayName = nameof(AtualizarValorNota_QuandoInformadoValoresValido_NaoDevePossuirNotificacao))]
         [Trait("Dominio", "Nota - Agregado")]        
         [InlineData(0)]
@@ -297,7 +289,6 @@ namespace ServicoLacamentoNotas.Testes.Dominio.Entidades
             nota.StatusIntegracao.Should().Be(StatusIntegracao.FalhaNaIntegracao);
         }
 
-
         [Theory(DisplayName = nameof(AlterarStatusParaFalhaIntegracao_QuandoNaoPermitidoTrocaStatus_NaoDeveAtualizarOStatus))]
         [InlineData(StatusIntegracao.AguardandoIntegracao)]
         [InlineData(StatusIntegracao.IntegradaComSucesso)]
@@ -355,6 +346,6 @@ namespace ServicoLacamentoNotas.Testes.Dominio.Entidades
             nota.EhValida.Should().BeFalse();
             nota.Notificacoes.Should().HaveCount(1);    
         }
-        
+       
     }
 }

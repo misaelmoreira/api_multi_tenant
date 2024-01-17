@@ -1,14 +1,10 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using FluentAssertions;
 using ServicoLancamentoNotas.Dominio.SeedWork;
 using Xunit;
 
 namespace ServicoLacamentoNotas.Testes.Dominio
 {
-    
     public class NotifiableObjectTests
     {
         [Fact(DisplayName = nameof(Notificar_DeveAdicionar_NotificacaoNaLista))]
@@ -28,7 +24,6 @@ namespace ServicoLacamentoNotas.Testes.Dominio
             objetoNotificavel.Notificacoes.Should().HaveCount(1);
             objetoNotificavel.Notificacoes.First().Campo.Should().Be(nomeCampo);
             objetoNotificavel.Notificacoes.First().Mensagem.Should().Be(mensagem);
-        }
-        
+        }        
     }
 }

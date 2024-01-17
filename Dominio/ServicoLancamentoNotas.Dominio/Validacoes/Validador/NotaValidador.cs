@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Dominio.ServicoLancamentoNotas.Dominio.Entidades;
+using ServicoLancamentoNotas.Dominio.Entidades;
 using FluentValidation;
 using ServicoLancamentoNotas.Dominio.Constantes;
 
@@ -28,7 +24,6 @@ namespace ServicoLancamentoNotas.Dominio.Validacoes.Validador
             RuleFor(x  => x.ValorNota)
                 .InclusiveBetween(0.00, 10.00)
                 .WithMessage(ConstantesDominio.MensagensValidacoes.ERRO_VALOR_NOTA_INVALIDO);
-
             
             When(x => x.MotivoCancelamento is not null, () => 
             {

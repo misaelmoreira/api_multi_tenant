@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using ServicoLancamentoNotas.Dominio.SeedWork;
 
 namespace ServicoLacamentoNotas.Testes
@@ -26,6 +22,5 @@ namespace ServicoLacamentoNotas.Testes
         public int UsuarioId { get; private set; }        
         public bool CanceladaPorRetentativa { get; private set; }
         public string? MotivoCancelamento { get; private set; }
-
     }
 }

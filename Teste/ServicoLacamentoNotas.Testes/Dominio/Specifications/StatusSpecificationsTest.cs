@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Threading.Tasks;
-using Dominio.ServicoLancamentoNotas.Dominio.Entidades;
+using ServicoLancamentoNotas.Dominio.Entidades;
 using FluentAssertions;
 using ServicoLacamentoNotas.Testes.Dominio.Entidades;
 using ServicoLancamentoNotas.Dominio.Enums;
@@ -72,9 +67,6 @@ namespace ServicoLacamentoNotas.Testes.Dominio.Specifications
             StatusEnviadaParaIntegracaoSpec.Instance.Should().NotBeNull();
             StatusEnviadaParaIntegracaoSpec.Instance.ToExpression().Should().NotBeNull();
             StatusEnviadaParaIntegracaoSpec.Instance.IsSatisfied(nota).Should().BeFalse();
-        }
-
-
-        
+        }        
     }
 }

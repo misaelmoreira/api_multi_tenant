@@ -4,7 +4,6 @@ namespace ServicoLancamentoNotas.Dominio.Params;
 
 public struct NotaParams
 {  
-
     public int AlunoId { get; private set; }
     public int AtividadeId { get; private set; }
     public double ValorNota { get; private set; }

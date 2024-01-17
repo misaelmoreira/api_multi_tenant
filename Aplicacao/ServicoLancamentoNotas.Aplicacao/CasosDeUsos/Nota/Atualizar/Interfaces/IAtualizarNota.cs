@@ -1,10 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using MediatR;
+using ServicoLancamentoNotas.Aplicacao.CasosDeUsos.Nota.Atualizar.DTOs;
 using ServicoLancamentoNotas.Aplicacao.CasosDeUsos.Nota.Comum;
-using ServicoLancamentoNotas.Aplicacao.CasosDeUsos.Nota.Lancar.DTOs;
 
 namespace ServicoLancamentoNotas.Aplicacao.CasosDeUsos.Nota.Lancar.Interfaces
 {

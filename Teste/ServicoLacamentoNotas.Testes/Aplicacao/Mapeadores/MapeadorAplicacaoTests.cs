@@ -1,12 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Dominio.ServicoLancamentoNotas.Dominio.Entidades;
 using FluentAssertions;
 using ServicoLancamentoNotas.Aplicacao.CasosDeUsos.Nota.Comum;
 using ServicoLancamentoNotas.Aplicacao.Mapeadores;
 using ServicoLancamentoNotas.Dominio.Enums;
+using ServicoLancamentoNotas.Dominio.Entidades;
 using Xunit;
 
 namespace ServicoLacamentoNotas.Testes.Aplicacao.Mapeadores
@@ -37,9 +33,9 @@ namespace ServicoLacamentoNotas.Testes.Aplicacao.Mapeadores
             nota.StatusIntegracao.Should().Be(StatusIntegracao.AguardandoIntegracao);            
         }  
 
-        [Fact(DisplayName = nameof(NotaEmNotaOutpuModel_QuandoConvertido_DeveRetornarNotaOutputModel))]
+        [Fact(DisplayName = nameof(NotaEmNotaOutputModel_QuandoConvertido_DeveRetornar))]
         [Trait("Aplicacao", "Mapeadores - NotaOutputModel")]
-        public void NotaEmNotaOutpuModel_QuandoConvertido_DeveRetornarNotaOutputModel()
+        public void NotaEmNotaOutputModel_QuandoConvertido_DeveRetornar()
         {
             //Arrange
             var nota = _fixture.RetornaNotaValida();

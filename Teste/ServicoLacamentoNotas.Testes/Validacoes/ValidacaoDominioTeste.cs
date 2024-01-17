@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using FluentAssertions;
 using ServicoLacamentoNotas.Testes.Dominio.Entidades;
 using ServicoLacamentoNotas.Testes.Validacoes.Validador;
@@ -36,7 +33,6 @@ namespace ServicoLacamentoNotas.Testes.Validacoes
             //Act
             ValidacoesDominio.DeveEstarEntre(valor, valorInicialIntervalo, valorFinalIntervalo, objetoNotificavel, null!, null!);
 
-
             //Assert
             objetoNotificavel.Notificacoes.Should().BeEmpty();
             objetoNotificavel.Notificacoes.Should().HaveCount(default(int));
@@ -57,7 +53,6 @@ namespace ServicoLacamentoNotas.Testes.Validacoes
 
             //Act
             ValidacoesDominio.DeveEstarEntre(valor, valorInicialIntervalo, valorFinalIntervalo, objetoNotificavel, nomeCampo, mensagem);
-
 
             //Assert
             objetoNotificavel.Notificacoes.Should().NotBeEmpty();
@@ -80,7 +75,6 @@ namespace ServicoLacamentoNotas.Testes.Validacoes
 
             //Act
             ValidacoesDominio.MaiorQue(valor, valorMinimo, objetoNotificavel, nomeCampo, mensagem);
-
 
             //Assert
             objetoNotificavel.Notificacoes.Should().NotBeEmpty();
@@ -175,7 +169,6 @@ namespace ServicoLacamentoNotas.Testes.Validacoes
             objetoNotificavel.Notificacoes.Select(x => x.Mensagem)
                 .Should().Contain(ConstantesDominio.MensagensValidacoes.ERRO_VALOR_NOTA_INVALIDO);
             objetoNotificavel.EhValida.Should().BeFalse();  
-
         }
 
         [Fact(DisplayName = nameof(Validar_QuandoValidacaoPassa_NaoDeveNotificarObjeto))]
