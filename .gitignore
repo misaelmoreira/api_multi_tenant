@@ -16,6 +16,8 @@
 pkg/
 src/
 
+*.mono
+
 appsettings.json
 
 ### Csharp ###

@@ -9,6 +9,10 @@ using ServicoLancamentoNotas.Aplicacao.CasosDeUsos.Nota.Lancar.Interfaces;
 using ServicoLancamentoNotas.Aplicacao.Interfaces;
 using ServicoLancamentoNotas.Dominio.Repositories;
 using Xunit;
+using ServicoLancamentoNotas.Aplicacao.Comum;
+using Microsoft.Extensions.Logging;
+using System;
+using ServicoLancamentoNotas.Aplicacao.Enums;
 
 namespace ServicoLacamentoNotas.Testes.Aplicacao.CasosDeUsosNota.Lancar
 {
@@ -18,6 +22,7 @@ namespace ServicoLacamentoNotas.Testes.Aplicacao.CasosDeUsosNota.Lancar
         private readonly LancarNotaTestsFixture _fixture;
         private readonly Mock<INotaRepository> _notaRepository;
         private readonly Mock<IUnitOfWork> _unitOfWork;
+        private readonly Mock<ILogger<LancarNota>> _logger;
         private readonly ILancarNota _sut;
 
         public LancarNotaTests(LancarNotaTestsFixture fixture)
@@ -25,19 +30,24 @@ namespace ServicoLacamentoNotas.Testes.Aplicacao.CasosDeUsosNota.Lancar
             _fixture = fixture;
             _notaRepository = new();
             _unitOfWork = new();
-            _sut = new LancarNota(_notaRepository.Object, _unitOfWork.Object);
+            _logger = new Mock<ILogger<LancarNota>>();
+            _sut = new LancarNota(_notaRepository.Object, _unitOfWork.Object, _logger.Object);
         }
 
-        [Fact(DisplayName = nameof(Handle_QuandoNotaNotaValidaParaSerSalva_DeveSerSalvar))]
+        [Fact(DisplayName = nameof(Handle_QuandoNotaNotaValida_DeveSerSalvar))]
         [Trait("Aplicacao", "Nota - Casos de Uso")]
-        public async Task Handle_QuandoNotaNotaValidaParaSerSalva_DeveSerSalvar()
+        public async Task Handle_QuandoNotaNotaValida_DeveSerSalvar()
         {
             var input = _fixture.DevolveNotaInputValido();
 
             var output = await _sut.Handle(input, CancellationToken.None);
 
             output.Should().NotBeNull();
-            output.Should().BeOfType<NotaOutputModel>();
+            output.Should().BeOfType<Resultado<NotaOutputModel>>();
+            output.Dado.Should().NotBeNull();
+            output.Dado.ValorNota.Should().Be(input.ValorNota);
+            output.Dado.AtividadeId.Should().Be(input.AtividadeId);
+            output.Dado.AlunoId.Should().Be(input.AlunoId);
             _notaRepository.Verify(x => x.Inserir(It.IsAny<Nota>(), It.IsAny<CancellationToken>()), Times.Once);
             _unitOfWork.Verify(x => x.Commit(It.IsAny<CancellationToken>()), Times.Once);            
         }
@@ -54,12 +64,78 @@ namespace ServicoLacamentoNotas.Testes.Aplicacao.CasosDeUsosNota.Lancar
             var output = await _sut.Handle(input, CancellationToken.None);
 
             output.Should().NotBeNull();
-            output.Should().BeOfType<NotaOutputModel>();
+            output.Should().BeOfType<Resultado<NotaOutputModel>>();      
+            output.Dado.Should().NotBeNull();
+            output.Dado.ValorNota.Should().Be(input.ValorNota);
+            output.Dado.AtividadeId.Should().Be(input.AtividadeId);
+            output.Dado.AlunoId.Should().Be(input.AlunoId);
             nota.CanceladaPorRetentativa.Should().BeTrue();
-            output.MotivoCancelamento.Should().NotBeEmpty();
+            output.Dado.MotivoCancelamento.Should().NotBeEmpty();
             _notaRepository.Verify(x => x.BuscarNotaPorAlunoEAtividade(input.AlunoId, input.AtividadeId, It.IsAny<CancellationToken>()));        
             _notaRepository.Verify(x => x.Inserir(It.IsAny<Nota>(), It.IsAny<CancellationToken>()), Times.Once);
             _notaRepository.Verify(x => x.Atualizar(It.IsAny<Nota>(), It.IsAny<CancellationToken>()), Times.Once);
+            _unitOfWork.Verify(x => x.Commit(It.IsAny<CancellationToken>()), Times.Once);    
+        }
+
+
+        [Fact(DisplayName = nameof(Handle_QuandoNotaNotaInvalida_NaoDeveSerSalvar))]
+        [Trait("Aplicacao", "Nota - Casos de Uso")]
+        public async Task Handle_QuandoNotaNotaInvalida_NaoDeveSerSalvar()
+        {
+            var input = _fixture.DevolveNotaInputInvalido();
+
+            var output = await _sut.Handle(input, CancellationToken.None);
+
+            output.Should().NotBeNull();
+            output.Should().BeOfType<Resultado<NotaOutputModel>>();
+            output.Dado.Should().BeNull();
+            output.Sucesso.Should().BeFalse();
+            output.DetalhesErros.Should().NotBeEmpty();
+            output.DetalhesErros.Should().HaveCount(3);
+            output.Erro.Should().Be(TipoErro.NotaInvalida);
+            _notaRepository.Verify(x => x.Inserir(It.IsAny<Nota>(), It.IsAny<CancellationToken>()), Times.Never);
+            _unitOfWork.Verify(x => x.Commit(It.IsAny<CancellationToken>()), Times.Never);            
+        }
+
+        [Fact(DisplayName = nameof(Handle_QuandoExcecaoInesperada_NaoDeveSerSalvar))]
+        [Trait("Aplicacao", "Nota - Casos de Uso")]
+        public async Task Handle_QuandoExcecaoInesperada_NaoDeveSerSalvar()
+        {
+            var input = _fixture.DevolveNotaInputValido();
+            _notaRepository.Setup(x => x.Inserir(It.IsAny<Nota>(), It.IsAny<CancellationToken>())).ThrowsAsync(new Exception());
+
+            var output = await _sut.Handle(input, CancellationToken.None);
+
+            output.Should().NotBeNull();
+            output.Should().BeOfType<Resultado<NotaOutputModel>>();
+            output.Dado.Should().BeNull();
+            output.Sucesso.Should().BeFalse();
+            output.Erro.Should().Be(TipoErro.ErroInesperado);
+            _notaRepository.Verify(x => x.Inserir(It.IsAny<Nota>(), It.IsAny<CancellationToken>()), Times.Once);
+            _unitOfWork.Verify(x => x.Commit(It.IsAny<CancellationToken>()), Times.Never);        
+        }
+
+
+        [Fact(DisplayName = nameof(Handle_QuandoNotaNotaValidaParaSerSalvaESusbistutivaNaoEncontrada_DeveSerSalvar))]
+        [Trait("Aplicacao", "Nota - Casos de Uso")]
+        public async Task Handle_QuandoNotaNotaValidaParaSerSalvaESusbistutivaNaoEncontrada_DeveSerSalvar()
+        {
+
+            _notaRepository.Setup(x => x.BuscarNotaPorAlunoEAtividade(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<CancellationToken>())).ReturnsAsync((Nota)null!);
+            var input = _fixture.DevolveNotaInputValidoSubstitutivo();
+
+            var output = await _sut.Handle(input, CancellationToken.None);
+
+            output.Should().NotBeNull();
+            output.Should().BeOfType<Resultado<NotaOutputModel>>();      
+            output.Dado.Should().NotBeNull();
+            output.Dado.ValorNota.Should().Be(input.ValorNota);
+            output.Dado.AtividadeId.Should().Be(input.AtividadeId);
+            output.Dado.AlunoId.Should().Be(input.AlunoId);
+            output.Dado.MotivoCancelamento.Should().NotBeEmpty();
+            _notaRepository.Verify(x => x.BuscarNotaPorAlunoEAtividade(input.AlunoId, input.AtividadeId, It.IsAny<CancellationToken>()), Times.Once);        
+            _notaRepository.Verify(x => x.Inserir(It.IsAny<Nota>(), It.IsAny<CancellationToken>()), Times.Once);
+            _notaRepository.Verify(x => x.Atualizar(It.IsAny<Nota>(), It.IsAny<CancellationToken>()), Times.Never);
             _unitOfWork.Verify(x => x.Commit(It.IsAny<CancellationToken>()), Times.Once);    
         }
     }

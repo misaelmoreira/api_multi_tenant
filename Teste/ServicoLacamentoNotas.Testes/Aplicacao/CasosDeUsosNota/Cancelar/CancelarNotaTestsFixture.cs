@@ -19,6 +19,15 @@ namespace ServicoLacamentoNotas.Testes.Aplicacao.CasosDeUsosNota.Cancelar
                     RetornaNumeroIdRandomico(), 
                     Faker.Commerce.ProductName());    
 
+        public CancelarNotaInput RetornaInputInvalido()
+        {
+            string motivoCancelamento = Faker.Lorem.Text();
+            while(motivoCancelamento.Length <= 500)
+                motivoCancelamento += Faker.Lorem.Text();
+
+            return new(RetornaNumeroIdRandomico(), RetornaNumeroIdRandomico(),  RetornaNumeroIdRandomico(), motivoCancelamento);
+        } 
+
         public NotaParams RetornaValoresParametrosNotaValidos()
             => new(RetornaNumeroIdRandomico(), RetornaNumeroIdRandomico(), RetornaValorNotaAleatorioValido(), DateTime.Now);
 

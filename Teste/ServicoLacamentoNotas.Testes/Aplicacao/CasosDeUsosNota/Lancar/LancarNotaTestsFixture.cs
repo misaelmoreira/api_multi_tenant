@@ -26,7 +26,10 @@ namespace ServicoLacamentoNotas.Testes.Aplicacao.CasosDeUsosNota.Lancar
                     RetornaNumeroIdRandomico(), 
                     RetornaValorNotaAleatorioValido(), 
                     true
-                );    
+                ); 
+
+        public LancarNotaInput DevolveNotaInputInvalido()
+            => new(-1, -1, -1, 11, false);      
 
         public NotaParams RetornaValoresParametrosNotaValidos()
             => new(RetornaNumeroIdRandomico(), 

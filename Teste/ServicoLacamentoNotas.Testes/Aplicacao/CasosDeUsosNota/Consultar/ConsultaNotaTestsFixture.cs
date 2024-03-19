@@ -11,10 +11,10 @@ using System.Collections.Generic;
 
 namespace ServicoLacamentoNotas.Testes.Aplicacao.CasosDeUsosNota.Consultar
 {
-    [CollectionDefinition(nameof(ConsultarNotaTestsFixture))]
-    public class ConsultarNotaTestsFixtureCollection : ICollectionFixture<ConsultarNotaTestsFixture> {}
+    [CollectionDefinition(nameof(ConsultaNotaTestsFixture))]
+    public class ConsultarNotaTestsFixtureCollection : ICollectionFixture<ConsultaNotaTestsFixture> {}
 
-    public class ConsultarNotaTestsFixture : BaseFixture
+    public class ConsultaNotaTestsFixture : BaseFixture
     {            
         public ListaNotaInput RetornaListBuscaInput()
             => new(1, 10, null, null, "");    
