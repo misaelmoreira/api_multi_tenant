@@ -1,0 +1,83 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{BE5124B3-9148-4307-8567-2E2E05D70905}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServicoLancamentoNotas.Api", "Api\ServicoLancamentoNotas.Api\ServicoLancamentoNotas.Api.csproj", "{23C35D74-2876-4F88-9C28-4C059E82507A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Teste", "Teste", "{7E58B96D-98E8-442C-BCA7-2A56C81585C8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServicoLacamentoNotas.Testes", "Teste\ServicoLacamentoNotas.Testes\ServicoLacamentoNotas.Testes.csproj", "{3A6052B8-1C1D-40ED-BE2A-52BA13FEE593}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dominio", "Dominio", "{EA302864-354F-4FBD-8057-23DAC577AA08}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServicoLancamentoNotas.Dominio", "Dominio\ServicoLancamentoNotas.Dominio\ServicoLancamentoNotas.Dominio.csproj", "{EB4AFFCC-92F2-49FF-9BE1-D4AA8C30B223}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Aplicacao", "Aplicacao", "{939BF812-2894-4E25-8BDF-A13B4B41D5A2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServicoLancamentoNotas.Aplicacao", "Aplicacao\ServicoLancamentoNotas.Aplicacao\ServicoLancamentoNotas.Aplicacao.csproj", "{42450AC1-E291-4809-A418-35F3429D6DC3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infra", "Infra", "{DC45C6EC-6DC6-4756-8BE2-EF4011D7D250}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{BE33D080-6005-447D-8AC7-107E6C3E2511}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServicoLancamentoNotas.Infra.Data", "Infra\Data\ServicoLancamentoNotas.Infra.Data\ServicoLancamentoNotas.Infra.Data.csproj", "{943538F4-9B11-4867-8A04-F4E3476749D1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServicoLancamentoNotas.TestesIntegracao", "Teste\ServicoLancamentoNotas.TestesIntegracao\ServicoLancamentoNotas.TestesIntegracao.csproj", "{25AD913E-456D-4209-A93B-CCDF402BA186}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CrossCutting", "CrossCutting", "{B419807A-06DE-4C93-9DA9-7174A13E1138}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServicoLancamentoNotas.Infra.CrossCutting.IoC", "Infra\CrossCutting\ServicoLancamentoNotas.Infra.CrossCutting.IoC\ServicoLancamentoNotas.Infra.CrossCutting.IoC.csproj", "{7F5D5A61-87FB-4133-AE7F-2745FCB208D1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{23C35D74-2876-4F88-9C28-4C059E82507A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23C35D74-2876-4F88-9C28-4C059E82507A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23C35D74-2876-4F88-9C28-4C059E82507A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23C35D74-2876-4F88-9C28-4C059E82507A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A6052B8-1C1D-40ED-BE2A-52BA13FEE593}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A6052B8-1C1D-40ED-BE2A-52BA13FEE593}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A6052B8-1C1D-40ED-BE2A-52BA13FEE593}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A6052B8-1C1D-40ED-BE2A-52BA13FEE593}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB4AFFCC-92F2-49FF-9BE1-D4AA8C30B223}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB4AFFCC-92F2-49FF-9BE1-D4AA8C30B223}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB4AFFCC-92F2-49FF-9BE1-D4AA8C30B223}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB4AFFCC-92F2-49FF-9BE1-D4AA8C30B223}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42450AC1-E291-4809-A418-35F3429D6DC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42450AC1-E291-4809-A418-35F3429D6DC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42450AC1-E291-4809-A418-35F3429D6DC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42450AC1-E291-4809-A418-35F3429D6DC3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{943538F4-9B11-4867-8A04-F4E3476749D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{943538F4-9B11-4867-8A04-F4E3476749D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{943538F4-9B11-4867-8A04-F4E3476749D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{943538F4-9B11-4867-8A04-F4E3476749D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{25AD913E-456D-4209-A93B-CCDF402BA186}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25AD913E-456D-4209-A93B-CCDF402BA186}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25AD913E-456D-4209-A93B-CCDF402BA186}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25AD913E-456D-4209-A93B-CCDF402BA186}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F5D5A61-87FB-4133-AE7F-2745FCB208D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F5D5A61-87FB-4133-AE7F-2745FCB208D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F5D5A61-87FB-4133-AE7F-2745FCB208D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F5D5A61-87FB-4133-AE7F-2745FCB208D1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{23C35D74-2876-4F88-9C28-4C059E82507A} = {BE5124B3-9148-4307-8567-2E2E05D70905}
+		{3A6052B8-1C1D-40ED-BE2A-52BA13FEE593} = {7E58B96D-98E8-442C-BCA7-2A56C81585C8}
+		{EB4AFFCC-92F2-49FF-9BE1-D4AA8C30B223} = {EA302864-354F-4FBD-8057-23DAC577AA08}
+		{42450AC1-E291-4809-A418-35F3429D6DC3} = {939BF812-2894-4E25-8BDF-A13B4B41D5A2}
+		{BE33D080-6005-447D-8AC7-107E6C3E2511} = {DC45C6EC-6DC6-4756-8BE2-EF4011D7D250}
+		{943538F4-9B11-4867-8A04-F4E3476749D1} = {BE33D080-6005-447D-8AC7-107E6C3E2511}
+		{25AD913E-456D-4209-A93B-CCDF402BA186} = {7E58B96D-98E8-442C-BCA7-2A56C81585C8}
+		{B419807A-06DE-4C93-9DA9-7174A13E1138} = {DC45C6EC-6DC6-4756-8BE2-EF4011D7D250}
+		{7F5D5A61-87FB-4133-AE7F-2745FCB208D1} = {B419807A-06DE-4C93-9DA9-7174A13E1138}
+	EndGlobalSection
+EndGlobal
